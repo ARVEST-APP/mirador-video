@@ -5,13 +5,13 @@
 
 We will soon submit a PR to the official Mirador repository to add video support for annotations.
 We already support React 18 and MUI5 are up-to-date to Mirador 4 alpha 2. We provide also a new plugin to display and edit annotations on videos : 
-
-https://github.com/ARVEST-APP/mirador-annotation-editor
+We also improve annotation filtering and search.
+https://github.com/ARVEST-APP/mirador-video
 
 ## For Mirador Users
 
 Our fork of Mirador is available as a package on npm.
-To use it change your existing Mirador dependency to `mirador-video` in your `package.json` file.
+To use it change your existing Mirador dependency to `arvest-mv` in your `package.json` file.
 
 Before
 ```json
@@ -20,7 +20,7 @@ Before
 
 After
 ```json
-"mirador": "npm:arvest-mv@^1.0.8"
+"mirador": "npm:arvest-mv@^1.0.27"
 ```
 
 Then run `npm install` to refresh your package.
