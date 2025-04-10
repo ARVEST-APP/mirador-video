@@ -48,12 +48,13 @@ export class VideoViewer extends Component {
       }
     }
     // Ensure `currentTime` updates are consistent
-    if (currentTime !== prevProps.currentTime) {
-      // Fix issue where reactPlayer didn't populate seek to time when the time was at 0
-      if (prevProps.currentTime === 0 || paused === true) {
-        this.playerRef.current.seekTo(currentTime);
-      }
-    }
+    // if (currentTime !== prevProps.currentTime) {
+    //
+    //   // Fix issue where reactPlayer didn't populate seek to time when the time was at 0
+    //   if (prevProps.currentTime === 0 || paused === true && currentTime !== prevProps.currentTime) {
+    //     this.playerRef.current.seekTo(currentTime);
+    //   }
+    // }
     const duration = canvas.getDuration();
     if (duration && currentTime > duration) {
       // It can happen when switching canvas
@@ -111,7 +112,7 @@ export class VideoViewer extends Component {
   /** */
   render() {
     const {
-      canvas, currentTime, windowId, paused, muted, debug,
+      canvas, currentTime, windowId, paused, muted, debug, setPaused
     } = this.props;
 
     const { containerRatio } = this.state;
@@ -136,6 +137,7 @@ export class VideoViewer extends Component {
       ]).filter((resource) => resource.body && resource.body[0].__jsonld && resource.body[0].__jsonld.type === 'Video'),
     );
 
+    console.log("videoResources",videoResources)
     // Only one video can be displayed at a time in this implementation.
     const len = videoResources.length;
     const video = len > 0
@@ -200,6 +202,7 @@ export class VideoViewer extends Component {
               }}
               >
                 <ReactPlayer
+                  onBuffer={()=>setPaused(true)}
                   width={videoStyle.width}
                   height={videoStyle.height}
                   ref={this.playerRef}
