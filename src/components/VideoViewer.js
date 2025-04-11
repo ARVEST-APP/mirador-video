@@ -137,7 +137,6 @@ export class VideoViewer extends Component {
       ]).filter((resource) => resource.body && resource.body[0].__jsonld && resource.body[0].__jsonld.type === 'Video'),
     );
 
-    console.log("videoResources",videoResources)
     // Only one video can be displayed at a time in this implementation.
     const len = videoResources.length;
     const video = len > 0
@@ -202,7 +201,7 @@ export class VideoViewer extends Component {
               }}
               >
                 <ReactPlayer
-                  onBuffer={()=>setPaused(true)}
+                  onBuffer={() => setPaused(true)}
                   width={videoStyle.width}
                   height={videoStyle.height}
                   ref={this.playerRef}
