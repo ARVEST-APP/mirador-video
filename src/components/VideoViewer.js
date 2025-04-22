@@ -7,7 +7,6 @@ import ReactPlayer from '@celluloid/react-player';
 import AnnotationItem from '../lib/AnnotationItem';
 import AnnotationsOverlayVideo from '../containers/AnnotationsOverlayVideo';
 import WindowCanvasNavigationControlsVideo from '../containers/WindowCanvasNavigationControlsVideo';
-import { setWindowSeekTo } from '../state/actions';
 
 /** */
 export class VideoViewer extends Component {
@@ -45,13 +44,6 @@ export class VideoViewer extends Component {
         this.timerStop();
       } else {
         this.timerStart();
-      }
-    }
-    // Ensure `currentTime` updates are consistent
-    if (currentTime !== prevProps.currentTime) {
-      // Fix issue where reactPlayer didn't populate seek to time when the time was at 0
-      if (prevProps.currentTime === 0 || paused === true) {
-        this.playerRef.current.seekTo(currentTime);
       }
     }
     const duration = canvas.getDuration();
@@ -111,7 +103,7 @@ export class VideoViewer extends Component {
   /** */
   render() {
     const {
-      canvas, currentTime, windowId, paused, muted, debug,
+      canvas, currentTime, windowId, paused, muted, debug, setPaused
     } = this.props;
 
     const { containerRatio } = this.state;
@@ -200,6 +192,7 @@ export class VideoViewer extends Component {
               }}
               >
                 <ReactPlayer
+                  onBuffer={() => setPaused(true)}
                   width={videoStyle.width}
                   height={videoStyle.height}
                   ref={this.playerRef}
