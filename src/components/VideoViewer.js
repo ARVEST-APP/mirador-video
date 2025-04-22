@@ -7,7 +7,6 @@ import ReactPlayer from '@celluloid/react-player';
 import AnnotationItem from '../lib/AnnotationItem';
 import AnnotationsOverlayVideo from '../containers/AnnotationsOverlayVideo';
 import WindowCanvasNavigationControlsVideo from '../containers/WindowCanvasNavigationControlsVideo';
-import { setWindowSeekTo } from '../state/actions';
 
 /** */
 export class VideoViewer extends Component {
@@ -47,14 +46,6 @@ export class VideoViewer extends Component {
         this.timerStart();
       }
     }
-    // Ensure `currentTime` updates are consistent
-    // if (currentTime !== prevProps.currentTime) {
-    //
-    //   // Fix issue where reactPlayer didn't populate seek to time when the time was at 0
-    //   if (prevProps.currentTime === 0 || paused === true && currentTime !== prevProps.currentTime) {
-    //     this.playerRef.current.seekTo(currentTime);
-    //   }
-    // }
     const duration = canvas.getDuration();
     if (duration && currentTime > duration) {
       // It can happen when switching canvas
